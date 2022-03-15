@@ -42,11 +42,11 @@ class FirestoreOrder {
   }
 
   static Stream<List<OrderModel>> getStreamOrder() {
-    return ordersCollectionReference.snapshots().map(
-        (snapshot) =>
-            snapshot.docs.map((doc) => OrderModel.fromSnapshot(doc)).toList());
-  
+    return ordersCollectionReference.orderBy('date',descending: true).snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => OrderModel.fromSnapshot(doc)).toList());
   }
+
+  
 
 // i used for get doc id or order
   static getStaffOrder() async {

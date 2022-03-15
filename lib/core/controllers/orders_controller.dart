@@ -80,7 +80,7 @@ class OrdersController extends GetxController {
 
   List<OrderModel> listComplitedOrderOfmonth() {
     List<OrderModel> t = [];
-    for (var order in completedOrder) {
+    for (var order in completedOrder){
       if (DateTime.parse(order.date)
           .isAfter(DateTime.now().subtract(const Duration(days: 31)))) {
         var isExist = t.firstWhereOrNull((element) =>

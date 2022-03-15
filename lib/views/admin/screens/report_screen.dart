@@ -20,19 +20,15 @@ class ReportScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Report Details'),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-      ),
-      body: GetBuilder<OrdersController>(
-        init: Get.find<OrdersController>(),
-        builder: (controller) => ListView.builder(
-          itemBuilder: (context, index) =>  DayWidget(order: orders[index]),
-          itemCount: orders.length,
+        appBar: AppBar(
+          title: const Text('Report Details'),
+          elevation: 0,
+          backgroundColor: Colors.transparent,
         ),
-      ),
-    );
+        body: ListView.builder(
+          itemBuilder: (context, index) => DayWidget(order: orders[index]),
+          itemCount: orders.length,
+        ));
   }
 }
 

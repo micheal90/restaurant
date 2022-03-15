@@ -54,8 +54,7 @@ class _LogInScreenState extends State<LogInScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Obx(
-        () => SingleChildScrollView(
+      body:  SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Center(
@@ -192,7 +191,7 @@ class _LogInScreenState extends State<LogInScreen> {
             ),
           ),
         ),
-      ),
+      
     );
   }
 }

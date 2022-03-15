@@ -166,9 +166,9 @@ class AdminHomeScreen extends StatelessWidget {
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.white),
               ),
-              onPressed: () {},
+              onPressed: ()=>Get.to(ReportScreen(orders: Get.find<OrdersController>().completedOrder)),
               child: const Text(
-                'Watch',
+                'All Orders',
                 style: TextStyle(color: Colors.black),
               ),
             ),
