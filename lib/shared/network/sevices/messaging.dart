@@ -62,17 +62,18 @@ class Messaging {
   static Future<void> createNotification(String? title, String? body) async {
     await AwesomeNotifications().createNotification(
       content: NotificationContent(
-        id: createUniqueId(),
-        channelKey: 'basic_channel',
-        title: title,
-        body: body,
-        wakeUpScreen: true,
-        displayOnBackground: true,
-        displayOnForeground: true,
-autoDismissible: true,
-        //bigPicture: 'asset://assets/chickenalt.png',
-        //notificationLayout: NotificationLayout.Default,
-      ),
+          id: createUniqueId(),
+          channelKey: 'basic_channel',
+          title: title,
+          body: body,
+          wakeUpScreen: true,
+          displayOnBackground: true,
+          displayOnForeground: true,
+          autoDismissible: true,
+          customSound: 'resource://raw/notification'
+          //bigPicture: 'asset://assets/chickenalt.png',
+          //notificationLayout: NotificationLayout.Default,
+          ),
       // actionButtons: [NotificationActionButton(key: 'open', label: 'Open')],
     );
   }

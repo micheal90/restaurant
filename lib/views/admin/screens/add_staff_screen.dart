@@ -9,14 +9,9 @@ import 'package:resturant_app/core/controllers/auth_controller.dart';
 import 'package:resturant_app/views/user/screens/auth/widgets/custom_button.dart';
 import 'package:resturant_app/views/user/screens/auth/widgets/custom_input_text_filed.dart';
 
-class AddStaffScreen extends StatefulWidget {
-  const AddStaffScreen({Key? key}) : super(key: key);
+class AddStaffScreen extends StatelessWidget {
+  AddStaffScreen({Key? key}) : super(key: key);
 
-  @override
-  State<AddStaffScreen> createState() => _AddStaffScreenState();
-}
-
-class _AddStaffScreenState extends State<AddStaffScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -30,7 +25,7 @@ class _AddStaffScreenState extends State<AddStaffScreen> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
         isUser: false);
-    Get.back();
+   
   }
 
   @override
@@ -41,8 +36,7 @@ class _AddStaffScreenState extends State<AddStaffScreen> {
           elevation: 0,
           backgroundColor: Colors.transparent,
         ),
-        body: Obx(
-          () => SingleChildScrollView(
+        body:  SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.all(20.0),
               child: Center(
@@ -110,6 +104,6 @@ class _AddStaffScreenState extends State<AddStaffScreen> {
               ),
             ),
           ),
-        ));
+        );
   }
 }

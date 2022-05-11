@@ -79,11 +79,13 @@ class ItemWidget extends StatelessWidget {
                 width: 10,
               ),
               GestureDetector(
-                onTap: () =>
-                    Get.find<CartController>().addItemToCart(itemModel).then((value) => Get.snackbar(
-                            '${Emojis.smile_beaming_face_with_smiling_eyes} ${Emojis.smile_face_savoring_food}',
-                            'Item has been added to cart',
-                            snackPosition: SnackPosition.BOTTOM)),
+                onTap: () => Get.find<CartController>()
+                    .addItemToCart(itemModel)
+                    .then((value) => Get.snackbar(
+                        '${Emojis.smile_beaming_face_with_smiling_eyes} ${Emojis.smile_face_savoring_food}',
+                        'Item has been added to cart',
+                        backgroundColor: Colors.white,
+                        snackPosition: SnackPosition.BOTTOM)),
                 child: Container(
                   height: 35,
                   padding: const EdgeInsets.all(5),
@@ -96,30 +98,12 @@ class ItemWidget extends StatelessWidget {
                   ),
                 ),
               ),
-              // IconButton(
-              //   padding: EdgeInsets.zero,
-              //   onPressed: () {},
-              //   icon: Image.asset(
-              //     'assets/images/delivery-truck.png',
-              //     color: KprimaryColor,
-              //   ),
-              // ),
-              // IconButton(
-              //     padding: EdgeInsets.zero,
-              //     color: KprimaryColor,
-              //     onPressed: () {},
-              //     icon: const Icon(Icons.shopping_cart_outlined)),
             ],
           )),
     );
   }
 
   Future<dynamic> itemDetails(BuildContext context) {
-    // _takeOrder(OrdersController controller) async {
-    //   await controller.takeOrder(orderId);
-    //   Get.back();
-    // }
-
     return showModalBottomSheet(
       context: context,
       builder: (context) => Padding(
@@ -149,21 +133,21 @@ class ItemWidget extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                if(itemModel.bestOffer)
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 3, vertical: 3),
-                  decoration: const BoxDecoration(
-                    color: KprimaryColor,
-                    borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(8),
-                        bottomRight: Radius.circular(8)),
-                  ),
-                  child: const Text(
-                    'Offer',
-                    style: TextStyle(color: Colors.black54, fontSize: 18),
-                  ),
-                )
+                if (itemModel.bestOffer)
+                  Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 3, vertical: 3),
+                    decoration: const BoxDecoration(
+                      color: KprimaryColor,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(8),
+                          bottomRight: Radius.circular(8)),
+                    ),
+                    child: const Text(
+                      'Offer',
+                      style: TextStyle(color: Colors.black54, fontSize: 18),
+                    ),
+                  )
               ],
             ),
             const SizedBox(

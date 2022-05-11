@@ -22,34 +22,22 @@ class ControlView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-     
-        debugPrint('user role+${authController.userRole.value}');
-        debugPrint('usermodel+${authController.userModel.value?.email}');
-        debugPrint('user+${authController.user?.value}');
-
-        if (authController.userModel.value == null ||
-            authController.userRole.value == null ||
-            authController.user?.value == null) {
-          return const OnBoardingScreen();
+      if (authController.userModel.value != null) {
+        if (authController.userModel.value!.role == ROLE.ADMIN.name) {
+          FirebaseMessaging.instance.unsubscribeFromTopic('staff');
+          return const AdminHomeScreen();
+        } else if (authController.userModel.value!.role == ROLE.STAFF.name) {
+          FirebaseMessaging.instance.subscribeToTopic('staff');
+          return StaffHomeScreen();
         } else {
-          if (authController.userRole.value == ROLE.USER) {
-            FirebaseMessaging.instance.unsubscribeFromTopic('staff');
-
-            //print(orderController.userOrderId);
-            return orderController.userOrderId != null
-                ? const SubmitOrderScreen()
-                : const BottomNavBarScreen();
-          } else if (authController.userRole.value == ROLE.STAFF) {
-            FirebaseMessaging.instance.subscribeToTopic('staff');
-            return StaffHomeScreen();
-          } else if (authController.userRole.value == ROLE.ADMIN) {
-            FirebaseMessaging.instance.unsubscribeFromTopic('staff');
-            return const AdminHomeScreen();
-          } else {
-            return const OnBoardingScreen();
-          }
+          FirebaseMessaging.instance.unsubscribeFromTopic('staff');
+          return orderController.userOrderId != null
+              ? const SubmitOrderScreen()
+              : const BottomNavBarScreen();
         }
-   
+      } else {
+        return const OnBoardingScreen();
+      }
     });
   }
 }

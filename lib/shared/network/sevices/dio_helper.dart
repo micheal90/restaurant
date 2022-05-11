@@ -27,7 +27,7 @@ class DioHelper {
         "priority": "HIGH",
         "notification": {
           "notification_priority": "PRIORITY_MAX",
-          "sound": "default",
+          "sound": "notification",
           "default_sound": "true",
           "default_vibrate_timings": "true",
           "default_light_settings": "true"
@@ -57,7 +57,7 @@ class DioHelper {
         "priority": "HIGH",
         "notification": {
           "notification_priority": "PRIORITY_MAX",
-          "sound": "default",
+          "sound": "notification",
           "default_sound": "true",
           "default_vibrate_timings": "true",
           "default_light_settings": "true"

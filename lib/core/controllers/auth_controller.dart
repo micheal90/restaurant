@@ -13,6 +13,7 @@ import 'package:resturant_app/shared/local/constants.dart';
 import 'package:resturant_app/shared/network/sevices/cash_helper.dart';
 import 'package:resturant_app/shared/network/sevices/firestore_user.dart';
 import 'package:resturant_app/shared/network/sevices/messaging.dart';
+import 'package:resturant_app/views/admin/screens/admin_home_screen.dart';
 import 'package:resturant_app/views/control_veiw.dart';
 
 class AuthController extends GetxController {
@@ -21,7 +22,7 @@ class AuthController extends GetxController {
 
   final Rxn<ROLE> _userRole = Rxn();
   Rxn<ROLE> get userRole => _userRole;
-  List<Map<String, String>> staffData = []; //store staff id and staff name
+  //List<Map<String, String>> staffData = []; //store staff id and staff name
 
   final Rxn<User> _user = Rxn<User>();
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -47,6 +48,7 @@ class AuthController extends GetxController {
       required String password,
       required bool isUser}) async {
     try {
+      var adminUser = _userModel.value; //save admin user data
       _isLoading.value = true;
       await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password)
@@ -71,15 +73,20 @@ class AuthController extends GetxController {
               password: password,
               role: ROLE.STAFF.name);
           await saveUserData(_userModel.value!, ROLE.STAFF);
+          _firebaseAuth.signOut();
+          _firebaseAuth
+              .signInWithEmailAndPassword(
+                  email: adminUser!.email, password: adminUser.password)
+              .then((value) => Get.to(const AdminHomeScreen()));
         }
       });
     } on FirebaseAuthException catch (e) {
       Get.snackbar("Error Registration Account", e.message.toString(),
+          duration: const Duration(seconds: 2),
           snackPosition: SnackPosition.BOTTOM);
     }
     _isLoading.value = false;
     await getStaffData();
-    // update();
   }
 
   Future signIn(String email, String password) async {
@@ -137,7 +144,6 @@ class AuthController extends GetxController {
         _userRole.value = ROLE.ADMIN;
       }
     });
-
   }
 
   Future setUserRole(String uId, ROLE role) async {
@@ -149,10 +155,9 @@ class AuthController extends GetxController {
   Future getCurrentUserData(String uId, ROLE role) async {
     await FireStoreUser.getUserDataFromFireStore(uId, role).then((value) async {
       _userModel.value = UserModel.fromMap(value.data());
-      //save user data local function
+      //save user data in local store
       await setUserDataLocal(_userModel.value!);
     });
-    // update();
   }
 
   Future getStaffData() async {
@@ -163,9 +168,6 @@ class AuthController extends GetxController {
         _staffs.add(UserModel.fromMap(element.data()));
       });
     }
-    _staffs.forEach((element) {
-      staffData.add({'id': element.userId, 'name': element.name});
-    });
     update();
   }
 
@@ -194,11 +196,11 @@ class AuthController extends GetxController {
           snackPosition: SnackPosition.BOTTOM);
     }
     _isLoading.value = false;
-    // update();
   }
 
   Future deleteStaff(String id) async {
     _isLoading.value = true;
+    var adminUser = _userModel.value;
     await getStaffData();
     try {
       UserModel _tempStaff =
@@ -214,17 +216,12 @@ class AuthController extends GetxController {
       Get.snackbar("Error delete Account", e.message.toString(),
           snackPosition: SnackPosition.BOTTOM);
     } finally {
-      UserModel? _backupUser = CashHelper.getUserData(key: 'userData');
-      await _firebaseAuth
-          .signInWithEmailAndPassword(
-              email: _backupUser!.email, password: _backupUser.password)
-          .then((value) async {
-        await getCurrentUserData(_backupUser.userId, ROLE.ADMIN);
-        await getStaffData();
-      });
+      _firebaseAuth.signOut();
+      _firebaseAuth.signInWithEmailAndPassword(
+          email: adminUser!.email, password: adminUser.password);
     }
+    await getStaffData();
     _isLoading.value = false;
-    // update();
   }
 
   void signOut() {
@@ -232,7 +229,6 @@ class AuthController extends GetxController {
     CashHelper.clearKey(key: 'userData').then((value) => debugPrint('Signout'));
     _userModel.value = null;
     _userRole.value = null;
-    // update();
   }
 
   @override

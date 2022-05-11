@@ -80,7 +80,7 @@ class OrdersController extends GetxController {
 
   List<OrderModel> listComplitedOrderOfmonth() {
     List<OrderModel> t = [];
-    for (var order in completedOrder){
+    for (var order in completedOrder) {
       if (DateTime.parse(order.date)
           .isAfter(DateTime.now().subtract(const Duration(days: 31)))) {
         var isExist = t.firstWhereOrNull((element) =>
@@ -162,40 +162,7 @@ class OrdersController extends GetxController {
           snackPosition: SnackPosition.BOTTOM);
     }
     _isLoading.value = false;
-    // update();
   }
-
-  // Future<void> getOrder() async {
-  //   orders.clear();
-  //   var data = await FirestoreOrder.getOrder();
-  //   data.forEach((element) {
-  //     orders.add(OrderModel.fromMap(element.data()));
-  //   });
-  //   orders.sort((a, b) {
-  //     return DateTime.parse(a.date).compareTo(DateTime.parse(b.date));
-  //   });
-  //   orders.reversed;
-  //   // print(orders);
-  //   update();
-  // }
-
-  // Future getStaffOrders() async {
-  //   staffOrders.clear();
-  //   var data = await FirestoreOrder.getStaffOrder();
-
-  //   data.forEach((element) {
-  //     staffOrders.add(StaffOrderModel.fromMap(element.data()));
-  //   });
-
-  //   staffOrders.sort((a, b) {
-  //     return DateTime.parse(a.date).compareTo(DateTime.parse(b.date));
-  //   });
-  //   staffOrders.reversed;
-  //   // staffOrders.forEach((element) {
-  //   //   print(element.date);
-  //   // });
-  //   update();
-  // }
 
   Future takeOrder(String orderId) async {
     try {
@@ -217,13 +184,12 @@ class OrdersController extends GetxController {
           snackPosition: SnackPosition.BOTTOM);
     }
     _isLoading.value = false;
-    // update();
   }
 
   Future unTakeOrder(String orderId) async {
     try {
       _isLoading.value = true;
-      // update();
+
       var data = await FirestoreOrder.getStaffOrder();
       var staffOrderId = data
           .firstWhere((element) =>
@@ -238,14 +204,11 @@ class OrdersController extends GetxController {
           snackPosition: SnackPosition.BOTTOM);
     }
     _isLoading.value = false;
-    // update();
   }
 
   Future<bool> finishEating() async {
     try {
       _isLoading.value = true;
-      // update();
-      //await getOrder();
       var order =
           orders.firstWhere((element) => element.orderId == _userOrderId);
       debugPrint(order.status);
@@ -253,7 +216,6 @@ class OrdersController extends GetxController {
         Get.snackbar("Big Smile", 'Please wait for your order to be delivered',
             snackPosition: SnackPosition.BOTTOM);
         _isLoading.value = false;
-        //  update();
         return false;
       } else {
         await updateOrder(
@@ -283,7 +245,6 @@ class OrdersController extends GetxController {
       Get.snackbar("Occurred Error!", e.toString(),
           snackPosition: SnackPosition.BOTTOM);
       _isLoading.value = false;
-      //update();
       return false;
     }
   }
@@ -301,7 +262,5 @@ class OrdersController extends GetxController {
     order.messagingStaffToken = messagingStaffToken;
     debugPrint(order.toString());
     await FirestoreOrder.updateOrder(order);
-    //await getOrder();
-    // update();
   }
 }

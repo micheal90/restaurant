@@ -51,7 +51,7 @@ class AdminHomeScreen extends StatelessWidget {
                     title: 'Reports',
                     text: 'Of Week',
                     onTap: () => Get.to(ReportScreen(
-                          orders: controller.listCompletedOrderOfWeek())),
+                        orders: controller.listCompletedOrderOfWeek())),
                   ),
                   const SizedBox(
                     width: 10,
@@ -86,14 +86,14 @@ class AdminHomeScreen extends StatelessWidget {
                   height: 20,
                 ),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton(
-                        onPressed: () => Get.to(const AddStaffScreen()),
+                        onPressed: () => Get.to(AddStaffScreen()),
                         child: const Text('Add Staff')),
-                    ElevatedButton(
-                        onPressed: () => Get.to(UpdateStaffScreen()),
-                        child: const Text('Update Staff')),
+                    // ElevatedButton(
+                    //     onPressed: () => Get.to(UpdateStaffScreen()),
+                    //     child: const Text('Update Staff')),
                     ElevatedButton(
                         onPressed: () => Get.to(const DeleteStaffScreen()),
                         child: const Text('Delete Staff')),
@@ -115,8 +115,6 @@ class AdminHomeScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
-        //mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        // crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
             'Staff Reports',
@@ -140,8 +138,9 @@ class AdminHomeScreen extends StatelessWidget {
                 width: 10,
               ),
               GetBuilder<AuthController>(
-                init: Get.find<AuthController>(),
-                builder:(controller) => Text('${controller.staffs.length} Staff')),
+                  init: Get.find<AuthController>(),
+                  builder: (controller) =>
+                      Text('${controller.staffs.length} Staff')),
             ],
           ),
           Row(
@@ -156,8 +155,9 @@ class AdminHomeScreen extends StatelessWidget {
                 width: 10,
               ),
               GetBuilder<OrdersController>(
-                init: Get.find<OrdersController>(),
-                builder:(controller) => Text('${controller.orders.length} Orders')),
+                  init: Get.find<OrdersController>(),
+                  builder: (controller) =>
+                      Text('${controller.orders.length} Orders')),
             ],
           ),
           Align(
@@ -166,7 +166,8 @@ class AdminHomeScreen extends StatelessWidget {
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.white),
               ),
-              onPressed: ()=>Get.to(ReportScreen(orders: Get.find<OrdersController>().completedOrder)),
+              onPressed: () => Get.to(ReportScreen(
+                  orders: Get.find<OrdersController>().completedOrder)),
               child: const Text(
                 'All Orders',
                 style: TextStyle(color: Colors.black),
