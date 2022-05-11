@@ -48,7 +48,7 @@ class AuthController extends GetxController {
       required String password,
       required bool isUser}) async {
     try {
-      var adminUser = _userModel.value; //save admin user data
+      var adminUser = _userModel.value; //save admin user data to resignin
       _isLoading.value = true;
       await _firebaseAuth
           .createUserWithEmailAndPassword(email: email, password: password)
@@ -77,7 +77,7 @@ class AuthController extends GetxController {
           _firebaseAuth
               .signInWithEmailAndPassword(
                   email: adminUser!.email, password: adminUser.password)
-              .then((value) => Get.to(const AdminHomeScreen()));
+              .then((value) => Get.offAll(const AdminHomeScreen()));
         }
       });
     } on FirebaseAuthException catch (e) {
@@ -200,7 +200,7 @@ class AuthController extends GetxController {
 
   Future deleteStaff(String id) async {
     _isLoading.value = true;
-    var adminUser = _userModel.value;
+    var adminUser = _userModel.value;//save admin user data to resignin
     await getStaffData();
     try {
       UserModel _tempStaff =
