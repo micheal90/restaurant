@@ -47,4 +47,4 @@ app.*.map.json
 # custom files
 constants.dart
 google-services.json
-auth_service.dart
+GoogleService-Info.plist

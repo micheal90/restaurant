@@ -64,8 +64,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               color: KprimaryColor,
             )),
       ),
-      body: Obx(
-        () => SingleChildScrollView(
+      body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Center(
@@ -159,7 +158,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
           ),
         ),
-      ),
+      
     );
   }
 }

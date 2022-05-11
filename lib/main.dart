@@ -21,6 +21,7 @@ import 'package:resturant_app/views/control_veiw.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
   Messaging.init();
   Messaging.pushFCMtoken();
   AwesomeNotifications().initialize('resource://drawable/launcher_icon', [
